@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 996268579642493080}
   - component: {fileID: 4678909298555040743}
   - component: {fileID: 935660679870802753}
+  - component: {fileID: 2276214164110512621}
   m_Layer: 0
   m_Name: hangar_roundA 1
   m_TagString: Untagged
@@ -63,6 +64,18 @@ CapsuleCollider:
   m_Height: 1.6380829
   m_Direction: 1
   m_Center: {x: 0.052206587, y: 0.7484609, z: 0}
+--- !u!114 &2276214164110512621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475310433801671202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 557958d738a84ec4da633156b3bcd41d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1181048779876104250
 GameObject:
   m_ObjectHideFlags: 0
