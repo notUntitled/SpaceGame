@@ -17,6 +17,11 @@ public class RocketController : MonoBehaviour
     //Z - A/D
     public float zRot = 0;
     public float duoDeNormalizer;
+    public GameObject shot;
+    public Transform spawnR;
+    public Transform spawnL;
+    public bool alternator;
+    public float shotSpeedMult;
     private void OnDrawGizmos()
     {
         mouseCast = cam.ScreenPointToRay(Input.mousePosition);
@@ -30,15 +35,45 @@ public class RocketController : MonoBehaviour
 
     private void Update()
     {
+        if (ship.rotation.z > 70)
+        {
+            ship.Rotate(0, 0, -(ship.rotation.z - 70));
+        }
+        if (ship.rotation.z < -70)
+        {
+            ship.Rotate(0, 0, (ship.rotation.z + 70));
+        }
         if (Input.anyKey)
         {
-            if (ship.rotation.z < 70 && Input.GetKey(KeyCode.A))
+            if (ship.rotation.y < 70 && Input.GetKey(KeyCode.A))
             {
-                zRot += 1;
+                yRot += .1f;
             }
-            if (ship.rotation.z > -70 && Input.GetKey(KeyCode.D))
+            if (ship.rotation.y > -70 && Input.GetKey(KeyCode.D))
             {
-                zRot -= 1;
+                yRot -= .1f;
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                Vector3 spawnpos = Vector3.zero;
+                switch (alternator)
+                {
+                    case true:
+                        spawnpos = spawnR.position;
+                        alternator = !alternator;
+                        break;
+                    case false:
+                        spawnpos = spawnL.position;
+                        alternator = !alternator;
+                        break;
+                }
+                GameObject fire = Instantiate(shot, spawnpos, Quaternion.identity);
+                fire.GetComponent<Rigidbody>().AddForce(mouseVec * shotSpeedMult);
+            }
+            {
+                //Either move-to or use a physics approach with Force and Rigidbody
+                ship.GetComponent<Rigidbody>().AddForce(mouseVec * deNormalizer);
             }
 
             if (Input.GetMouseButton(0))
@@ -47,14 +82,14 @@ public class RocketController : MonoBehaviour
                 ship.GetComponent<Rigidbody>().AddForce(mouseVec * deNormalizer);
             }
         }
-        else if (ship.rotation.z > 0) //Stabilizer
+        /*else if (ship.rotation.z > 0) //Stabilizers
         {
             zRot -= (ship.rotation.z/2);
         }
         else if (ship.rotation.z < 0)
         {
             zRot += (ship.rotation.z / 2);
-        }
+        }*/
         ship.Rotate(xRot/ duoDeNormalizer, yRot/ duoDeNormalizer, zRot/ duoDeNormalizer);
     }
 
