@@ -48,11 +48,11 @@ public class RocketController : MonoBehaviour
         }
         if (Input.anyKey)
         {
-            if (ship.rotation.y < 70 && Input.GetKey(KeyCode.A))
+            if (ship.rotation.y < 70 && Input.GetKey(KeyCode.D))
             {
                 yRot += .1f;
             }
-            if (ship.rotation.y > -70 && Input.GetKey(KeyCode.D))
+            if (ship.rotation.y > -70 && Input.GetKey(KeyCode.A))
             {
                 yRot -= .1f;
             }
