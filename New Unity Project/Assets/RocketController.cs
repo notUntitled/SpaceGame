@@ -30,21 +30,31 @@ public class RocketController : MonoBehaviour
 
     private void Update()
     {
-        if (ship.rotation.z < 70 && Input.GetKey(KeyCode.A))
+        if (Input.anyKey)
         {
-            zRot += 1;
+            if (ship.rotation.z < 70 && Input.GetKey(KeyCode.A))
+            {
+                zRot += 1;
+            }
+            if (ship.rotation.z > -70 && Input.GetKey(KeyCode.D))
+            {
+                zRot -= 1;
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                //Either move-to or use a physics approach with Force and Rigidbody
+                ship.GetComponent<Rigidbody>().AddForce(mouseVec * deNormalizer);
+            }
         }
-        if (ship.rotation.z > -70 && Input.GetKey(KeyCode.D))
+        else if (ship.rotation.z > 0) //Stabilizer
         {
             zRot -= 1;
         }
-        
-        if (Input.GetMouseButton(0))
+        else if (ship.rotation.z < 0)
         {
-            //Either move-to or use a physics approach with Force and Rigidbody
-            ship.GetComponent<Rigidbody>().AddForce(mouseVec * deNormalizer);
+            zRot += 1;
         }
-
         ship.Rotate(xRot/ duoDeNormalizer, yRot/ duoDeNormalizer, zRot/ duoDeNormalizer);
     }
 
