@@ -49,11 +49,11 @@ public class RocketController : MonoBehaviour
         }
         else if (ship.rotation.z > 0) //Stabilizer
         {
-            zRot -= 1;
+            zRot -= (ship.rotation.z/2);
         }
         else if (ship.rotation.z < 0)
         {
-            zRot += 1;
+            zRot += (ship.rotation.z / 2);
         }
         ship.Rotate(xRot/ duoDeNormalizer, yRot/ duoDeNormalizer, zRot/ duoDeNormalizer);
     }
