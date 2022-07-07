@@ -30,7 +30,10 @@ public class RocketController : MonoBehaviour
         mouseMagnitude = mouseVec.magnitude;
         Gizmos.color = Color.red;
         Gizmos.DrawLine(cam.transform.position, cam.transform.position + (mouseVec * visualMultiplier));
-
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(spawnL.position, mouseVec* visualMultiplier + spawnL.position);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(spawnR.position, mouseVec*visualMultiplier + spawnR.position);
     }
 
     private void Update()
@@ -54,7 +57,7 @@ public class RocketController : MonoBehaviour
                 yRot -= .1f;
             }
 
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKey(KeyCode.F))
             {
                 Vector3 spawnpos = Vector3.zero;
                 switch (alternator)
@@ -69,11 +72,8 @@ public class RocketController : MonoBehaviour
                         break;
                 }
                 GameObject fire = Instantiate(shot, spawnpos, Quaternion.identity);
-                fire.GetComponent<Rigidbody>().AddForce(mouseVec * shotSpeedMult);
-            }
-            {
-                //Either move-to or use a physics approach with Force and Rigidbody
-                ship.GetComponent<Rigidbody>().AddForce(mouseVec * deNormalizer);
+                fire.transform.Rotate(90, 0, 0);
+                fire.GetComponent<Rigidbody>().AddForce(mouseVec * shotSpeedMult *50);
             }
 
             if (Input.GetMouseButton(0))
