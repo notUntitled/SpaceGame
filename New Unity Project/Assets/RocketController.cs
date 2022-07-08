@@ -22,6 +22,7 @@ public class RocketController : MonoBehaviour
     public Transform spawnL;
     public bool alternator;
     public float shotSpeedMult;
+    public float velocityClamp = 200f;
     private void OnDrawGizmos()
     {
         mouseCast = cam.ScreenPointToRay(Input.mousePosition);
@@ -80,6 +81,7 @@ public class RocketController : MonoBehaviour
             {
                 //Either move-to or use a physics approach with Force and Rigidbody
                 ship.GetComponent<Rigidbody>().AddForce(mouseVec * deNormalizer);
+                ship.GetComponent<Rigidbody>().velocity = Vector3.ClampMagnitude(ship.GetComponent<Rigidbody>().velocity, velocityClamp);
             }
         }
         /*else if (ship.rotation.z > 0) //Stabilizers
