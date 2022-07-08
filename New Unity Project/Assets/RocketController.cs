@@ -17,7 +17,7 @@ public class RocketController : MonoBehaviour
     //Z - A/D
     public float zRot = 0;
     public float duoDeNormalizer;
-    public GameObject shot;
+    public GameObject shot; 
     public Transform spawnR; 
     public Transform spawnL;
     public bool alternator;
