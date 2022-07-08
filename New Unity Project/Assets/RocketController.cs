@@ -10,7 +10,7 @@ public class RocketController : MonoBehaviour
     public float mouseMagnitude;
     public Transform ship;
     public float visualMultiplier;
-    public Vector3 suppliedForce; 
+    public Vector3 suppliedForce;  
     public float deNormalizer;
     public float xRot = 0;
     public float yRot = 0;
