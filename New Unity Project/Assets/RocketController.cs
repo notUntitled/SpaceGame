@@ -39,25 +39,34 @@ public class RocketController : MonoBehaviour
 
     private void Update()
     {
-        if (ship.rotation.z > 70)
+        yRot = 0;
+        xRot = 0;
+        if (ship.rotation.y > 70)
         {
-            ship.Rotate(0, 0, -(ship.rotation.z - 70));
+            ship.Rotate(0, 0, -(ship.rotation.y - 70));
         }
-        if (ship.rotation.z < -70)
+        if (ship.rotation.y < -70)
         {
-            ship.Rotate(0, 0, (ship.rotation.z + 70));
+            ship.Rotate(0, 0, (ship.rotation.y + 70));
         }
         if (Input.anyKey)
         {
             if (ship.rotation.y < 70 && Input.GetKey(KeyCode.D))
             {
-                yRot += .1f;
+                yRot += 25f;
             }
             if (ship.rotation.y > -70 && Input.GetKey(KeyCode.A))
             {
-                yRot -= .1f;
+                yRot -= 25f;
             }
-
+            if (ship.rotation.x > -70 && Input.GetKey(KeyCode.W))
+            {
+                xRot -= 25f;
+            }
+            if (ship.rotation.x < 70 && Input.GetKey(KeyCode.S))
+            {
+                xRot += 25f;
+            }
             if (Input.GetKey(KeyCode.F))
             {
                 Vector3 spawnpos = Vector3.zero;
@@ -76,12 +85,14 @@ public class RocketController : MonoBehaviour
                 fire.transform.Rotate(90, 0, 0);
                 fire.GetComponent<Rigidbody>().AddForce(mouseVec * shotSpeedMult *50);
             }
-
-            if (Input.GetMouseButton(0))
+            if (Input.GetKey(KeyCode.LeftShift))
             {
-                //Either move-to or use a physics approach with Force and Rigidbody
-                ship.GetComponent<Rigidbody>().AddForce(mouseVec * deNormalizer);
-                ship.GetComponent<Rigidbody>().velocity = Vector3.ClampMagnitude(ship.GetComponent<Rigidbody>().velocity, velocityClamp);
+                ship.GetComponent<Rigidbody>().drag = 10 * ship.GetComponent<Rigidbody>().drag;
+            }
+                if (Input.GetMouseButton(0))
+            {
+                
+                AddForceInDirec(mouseVec);
             }
         }
         /*else if (ship.rotation.z > 0) //Stabilizers
@@ -95,6 +106,10 @@ public class RocketController : MonoBehaviour
         ship.Rotate(xRot/ duoDeNormalizer, yRot/ duoDeNormalizer, zRot/ duoDeNormalizer);
     }
 
-
+    public void AddForceInDirec(Vector3 direction)
+    {
+        ship.GetComponent<Rigidbody>().AddForce(direction * deNormalizer);
+        ship.GetComponent<Rigidbody>().velocity = Vector3.ClampMagnitude(ship.GetComponent<Rigidbody>().velocity, velocityClamp);
+    }
     //Lerp stabilizer thingy probably
 }
