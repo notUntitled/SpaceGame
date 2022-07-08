@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RocketController : MonoBehaviour
+public class RocketController : MonoBehaviour 
 {
     public Ray mouseCast;
     public Vector3 mouseVec;
