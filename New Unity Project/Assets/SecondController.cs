@@ -79,7 +79,7 @@ public class SecondController : MonoBehaviour
                         break;
                 }
                 GameObject fire = Instantiate(shot, spawnpos, Quaternion.identity);
-                fire.transform.Rotate(90, 0, 0);
+                fire.transform.Rotate(fire.transform.localRotation.x + 90, transform.rotation.y, transform.rotation.z);
                 fire.GetComponent<Rigidbody>().AddForce(mouseVec * shotSpeedMult * 50);
             }
             if (Input.GetKey(KeyCode.LeftShift))
