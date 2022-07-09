@@ -49,10 +49,12 @@ public class SecondController : MonoBehaviour
             if (ship.rotation.y < 70 && Input.GetKey(KeyCode.D))
             {
                 yRot += 1f;
+                zRot -= 1f;
             }
             if (ship.rotation.y > -70 && Input.GetKey(KeyCode.A))
             {
                 yRot -= 1f;
+                zRot += 1f;
             }
             if (ship.rotation.x > -70 && Input.GetKey(KeyCode.W))
             {
@@ -91,8 +93,8 @@ public class SecondController : MonoBehaviour
         }
         else
         {
-            ship.rotation = Quaternion.RotateTowards(ship.rotation, new Quaternion(AutoCorrect(ship.rotation.x), AutoCorrect(ship.rotation.y), 
-                AutoCorrect(ship.rotation.z), AutoCorrect(ship.rotation.w))
+            ship.rotation = Quaternion.RotateTowards(ship.rotation, new Quaternion(AutoCorrect(ship.rotation.x, 0), AutoCorrect(ship.rotation.y, 0), 
+                AutoCorrect(ship.rotation.z, 1), AutoCorrect(ship.rotation.w, 0))
             {
 
             }, Time.deltaTime * rotationSpeed);
@@ -109,11 +111,36 @@ public class SecondController : MonoBehaviour
     }
     //Lerp stabilizer thingy probably
 
-    float AutoCorrect(float rotation)
+    float AutoCorrect(float rotation, int intensity)
     {
         //Find nearest 45 deg angle
         //8 AM. Cant think of many efficient ways to solve this. I'll come back to this later for optimization.
-        float[] degs = { 0, .5f, 1f };
+        float[] degs = { 0, .125f, .25f, .375f, .5f, .625f, .75f, .875f, 1f };
+        switch (intensity)
+        {
+            case 0:
+                degs[0] = 0;
+                degs[1] = .125f;
+                degs[2] = .25f;
+                degs[3] = .375f;
+                degs[4] = .5f;
+                degs[5] = .625f;
+                degs[6] = .75f;
+                degs[7] = .875f;
+                degs[8] = 1f;
+                break;
+            case 1:
+                degs[0] = 0;
+                degs[1] = 0;
+                degs[2] = .25f;
+                degs[3] = 0;
+                degs[4] = .5f;
+                degs[5] = 0;
+                degs[6] = .75f;
+                degs[7] = 0;
+                degs[8] = 1f;
+                break;
+        }
         bool pos = rotation >= 0 ? true : false;
         float closestRot = 1000;
         for(int x = 0; x < degs.Length; x++)
