@@ -93,7 +93,7 @@ public class SecondController : MonoBehaviour
         }
         else
         {
-            ship.rotation = Quaternion.RotateTowards(ship.rotation, Quaternion.identity, Time.deltaTime * rotationSpeed);
+            ship.rotation = Quaternion.RotateTowards(ship.rotation, new Quaternion(AutoCorrect(ship.rotation.x), AutoCorrect(ship.rotation.y), AutoCorrect(ship.rotation.z), AutoCorrect(ship.rotation.w)), Time.deltaTime * rotationSpeed);
         }
         /*else if (ship.rotation.z > 0) //Stabilizers
         {
@@ -107,7 +107,7 @@ public class SecondController : MonoBehaviour
     }
     //Lerp stabilizer thingy probably
 
-    void AutoCorrect(float rotation)
+    float AutoCorrect(float rotation)
     {
         //Find nearest 45 deg angle
         //8 AM. Cant think of many efficient ways to solve this. I'll come back to this later for optimization.
@@ -123,10 +123,14 @@ public class SecondController : MonoBehaviour
                     closestRot = degs[x];
                 }
             }
-            else
+            else // CAN'T I JUST CONDENSE THIS WITH MATHf.ABS ON BOTH ?? IDK ITS 8 AM. THINK LATER!
             {
-                if()
+                if(Mathf.Abs(degs[x]) - Mathf.Abs(rotation) < closestRot)
+                {
+                    closestRot = degs[x];
+                }
             }
         }
+        return closestRot;
     }
 }
