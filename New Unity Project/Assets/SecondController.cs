@@ -106,4 +106,27 @@ public class SecondController : MonoBehaviour
         ship.Rotate(xRot / duoDeNormalizer, yRot / duoDeNormalizer, zRot / duoDeNormalizer);
     }
     //Lerp stabilizer thingy probably
+
+    void AutoCorrect(float rotation)
+    {
+        //Find nearest 45 deg angle
+        //8 AM. Cant think of many efficient ways to solve this. I'll come back to this later for optimization.
+        float[] degs = { 0, 45, 90, 135, 180 };
+        bool pos = rotation >= 0 ? true : false;
+        float closestRot = 100;
+        for(int x = 0; x < degs.Length; x++)
+        {
+            if (pos)
+            {
+                if(Mathf.Abs(degs[x] - rotation) < closestRot)
+                {
+                    closestRot = degs[x];
+                }
+            }
+            else
+            {
+                if()
+            }
+        }
+    }
 }
