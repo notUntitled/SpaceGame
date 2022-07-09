@@ -120,19 +120,19 @@ public class SecondController : MonoBehaviour
         float closestRot = 1000;
         for(int x = 0; x < degs.Length; x++)
         {
-            if(Mathf.Abs(rotation) - degs[x] < closestRot)
+            if(Mathf.Abs(Mathf.Abs(rotation) - degs[x]) < Mathf.Abs(Mathf.Abs(rotation) - closestRot))
                 {
                     closestRot = degs[x];
                 }
         }
         if (pos)
         {
-            Debug.Log(closestRot);
+            Debug.Log(rotation + "is closeset to: " + closestRot);
             return closestRot;
         }
         else
         {
-            Debug.Log(closestRot);
+            Debug.Log(rotation + "is closeset to: " + -closestRot);
             return -closestRot;
         }
     }
