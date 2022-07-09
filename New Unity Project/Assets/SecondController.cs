@@ -93,7 +93,11 @@ public class SecondController : MonoBehaviour
         }
         else
         {
-            ship.rotation = Quaternion.RotateTowards(ship.rotation, new Quaternion(AutoCorrect(ship.rotation.x), AutoCorrect(ship.rotation.y), AutoCorrect(ship.rotation.z), AutoCorrect(ship.rotation.w)), Time.deltaTime * rotationSpeed);
+            ship.rotation = Quaternion.RotateTowards(ship.rotation, new Quaternion(Quaternion.identity.x + AutoCorrect(ship.rotation.x), Quaternion.identity.y + AutoCorrect(ship.rotation.y), 
+                Quaternion.identity.z + AutoCorrect(ship.rotation.z), Quaternion.identity.w + AutoCorrect(ship.rotation.w))
+            {
+
+            }, Time.deltaTime * rotationSpeed);
         }
         /*else if (ship.rotation.z > 0) //Stabilizers
         {
@@ -113,24 +117,23 @@ public class SecondController : MonoBehaviour
         //8 AM. Cant think of many efficient ways to solve this. I'll come back to this later for optimization.
         float[] degs = { 0, 45, 90, 135, 180 };
         bool pos = rotation >= 0 ? true : false;
-        float closestRot = 100;
+        float closestRot = 1000;
         for(int x = 0; x < degs.Length; x++)
         {
-            if (pos)
-            {
-                if(Mathf.Abs(degs[x] - rotation) < closestRot)
+            if(Mathf.Abs(rotation) - degs[x] < closestRot)
                 {
                     closestRot = degs[x];
                 }
-            }
-            else // CAN'T I JUST CONDENSE THIS WITH MATHf.ABS ON BOTH ?? IDK ITS 8 AM. THINK LATER!
-            {
-                if(Mathf.Abs(degs[x]) - Mathf.Abs(rotation) < closestRot)
-                {
-                    closestRot = degs[x];
-                }
-            }
         }
-        return closestRot;
+        if (pos)
+        {
+            Debug.Log(closestRot);
+            return closestRot;
+        }
+        else
+        {
+            Debug.Log(closestRot);
+            return -closestRot;
+        }
     }
 }
