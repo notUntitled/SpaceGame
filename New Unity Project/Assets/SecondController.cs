@@ -49,12 +49,10 @@ public class SecondController : MonoBehaviour
             if (ship.rotation.y < 70 && Input.GetKey(KeyCode.D))
             {
                 yRot += 1f;
-                zRot -= 1f;
             }
             if (ship.rotation.y > -70 && Input.GetKey(KeyCode.A))
             {
                 yRot -= 1f;
-                zRot += 1f;
             }
             if (ship.rotation.x > -70 && Input.GetKey(KeyCode.W))
             {
@@ -93,8 +91,8 @@ public class SecondController : MonoBehaviour
         }
         else
         {
-            ship.rotation = Quaternion.RotateTowards(ship.rotation, new Quaternion(Quaternion.identity.x + AutoCorrect(ship.rotation.x), Quaternion.identity.y + AutoCorrect(ship.rotation.y), 
-                Quaternion.identity.z + AutoCorrect(ship.rotation.z), Quaternion.identity.w + AutoCorrect(ship.rotation.w))
+            ship.rotation = Quaternion.RotateTowards(ship.rotation, new Quaternion(AutoCorrect(ship.rotation.x), AutoCorrect(ship.rotation.y), 
+                AutoCorrect(ship.rotation.z), AutoCorrect(ship.rotation.w))
             {
 
             }, Time.deltaTime * rotationSpeed);
@@ -115,7 +113,7 @@ public class SecondController : MonoBehaviour
     {
         //Find nearest 45 deg angle
         //8 AM. Cant think of many efficient ways to solve this. I'll come back to this later for optimization.
-        float[] degs = { 0, 45, 90, 135, 180 };
+        float[] degs = { 0, .5f, 1f };
         bool pos = rotation >= 0 ? true : false;
         float closestRot = 1000;
         for(int x = 0; x < degs.Length; x++)
