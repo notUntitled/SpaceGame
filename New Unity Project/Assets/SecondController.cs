@@ -152,12 +152,10 @@ public class SecondController : MonoBehaviour
         }
         if (pos)
         {
-            Debug.Log(rotation + "is closeset to: " + closestRot);
             return closestRot;
         }
         else
         {
-            Debug.Log(rotation + "is closeset to: " + -closestRot);
             return -closestRot;
         }
     }
