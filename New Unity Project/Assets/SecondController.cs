@@ -44,6 +44,7 @@ public class SecondController : MonoBehaviour
         yRot = 0;
         xRot = 0;
         zRot = 0;
+
         if (Input.anyKey)
         {
             if (ship.rotation.y < 70 && Input.GetKey(KeyCode.D))
