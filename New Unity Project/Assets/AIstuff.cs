@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AIstuff : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject player;
+    public Vector3 direcToPlayer;
     void Start()
     {
         
@@ -13,6 +14,12 @@ public class AIstuff : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        direcToPlayer = player.transform.position;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, direcToPlayer);
     }
 }
