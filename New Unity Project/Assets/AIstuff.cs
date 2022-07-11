@@ -31,7 +31,7 @@ public class AIstuff : MonoBehaviour
         transform.rotation = enemyRotation;
 
         //Move ship to player
-        transform.position = (transform.position - player.transform.position) * speed;
+        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed);
     }
 
     private void OnDrawGizmos()
