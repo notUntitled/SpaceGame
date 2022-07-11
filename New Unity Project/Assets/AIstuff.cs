@@ -9,9 +9,10 @@ public class AIstuff : MonoBehaviour
     public Quaternion enemyRotation;
     public float rotAngle;
     public Vector3 axis;
+    public float speed;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -23,11 +24,14 @@ public class AIstuff : MonoBehaviour
         //Acosine of the Dot Product between the Forward Vector and the desired Vector (DirecToPlayer). Convert to Deg.
         rotAngle = Mathf.Acos(Vector3.Dot(Vector3.forward, direcToPlayer)) * Mathf.Rad2Deg;
         //Cross product between the Forward Vector and the direction the enemy should be looking.
-        axis = Vector3.Cross(Vector3.forward, direcToPlayer);    
+        axis = Vector3.Cross(Vector3.forward, direcToPlayer);
         enemyRotation = Quaternion.AngleAxis(rotAngle, axis);
 
 
         transform.rotation = enemyRotation;
+
+        //Move ship to player
+        transform.position = (transform.position - player.transform.position) * speed;
     }
 
     private void OnDrawGizmos()
