@@ -8,6 +8,7 @@ public class AIstuff : MonoBehaviour
     public Vector3 direcToPlayer;
     public Quaternion enemyRotation;
     public float rotAngle;
+    public Vector3 axis;
     void Start()
     {
         
@@ -16,9 +17,14 @@ public class AIstuff : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //NEED TO NORMALIZE OR THE QUATERNION IS PURE.
+        direcToPlayer = player.transform.position.normalized;
 
-        direcToPlayer = player.transform.position;
-        enemyRotation = Quaternion.AngleAxis();
+        //Acosine of the Dot Product between the Forward Vector and the desired Vector (DirecToPlayer). Convert to Deg.
+        rotAngle = Mathf.Acos(Vector3.Dot(Vector3.forward, direcToPlayer)) * Mathf.Rad2Deg;
+        //Cross product between the Forward Vector and the direction the enemy should be looking.
+        axis = Vector3.Cross(Vector3.forward, direcToPlayer);    
+        enemyRotation = Quaternion.AngleAxis(rotAngle, axis);
 
 
         transform.rotation = enemyRotation;
