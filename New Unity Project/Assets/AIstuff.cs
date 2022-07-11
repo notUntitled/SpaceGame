@@ -17,8 +17,8 @@ public class AIstuff : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //NEED TO NORMALIZE OR THE QUATERNION IS PURE.
-        direcToPlayer = player.transform.position.normalized;
+        //NEED TO NORMALIZE ELSE THE QUATERNION IS PURE.
+        direcToPlayer = (player.transform.position - transform.position).normalized;
 
         //Acosine of the Dot Product between the Forward Vector and the desired Vector (DirecToPlayer). Convert to Deg.
         rotAngle = Mathf.Acos(Vector3.Dot(Vector3.forward, direcToPlayer)) * Mathf.Rad2Deg;
@@ -33,6 +33,6 @@ public class AIstuff : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, direcToPlayer);
+        Gizmos.DrawLine(transform.position, (direcToPlayer + transform.position) * 20);
     }
 }
