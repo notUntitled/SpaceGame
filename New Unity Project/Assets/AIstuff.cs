@@ -6,6 +6,8 @@ public class AIstuff : MonoBehaviour
 {
     public GameObject player;
     public Vector3 direcToPlayer;
+    public Quaternion enemyRotation;
+    public float rotAngle;
     void Start()
     {
         
@@ -14,7 +16,12 @@ public class AIstuff : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         direcToPlayer = player.transform.position;
+        enemyRotation = Quaternion.AngleAxis();
+
+
+        transform.rotation = enemyRotation;
     }
 
     private void OnDrawGizmos()
