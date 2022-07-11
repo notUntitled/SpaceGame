@@ -33,6 +33,6 @@ public class AIstuff : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, (direcToPlayer + transform.position) * 20);
+        Gizmos.DrawLine(transform.position, player.transform.position);
     }
 }
