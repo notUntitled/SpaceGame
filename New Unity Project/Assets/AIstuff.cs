@@ -19,7 +19,7 @@ public class AIstuff : MonoBehaviour
     public bool canShoot;
     void Start()
     {
-
+        player = GameObject.Find("player");
     }
 
     // Update is called once per frame

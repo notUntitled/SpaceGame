@@ -24,7 +24,11 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemy()
     {
+        float xSpawn = Random.Range(player.position.x - 200, player.position.x + 200);
+        float ySpawn = Random.Range(0, player.position.y + 10);
+        float zSpawn = Random.Range(player.position.y - 200, player.position.y + 200);
+        Debug.Log($"Spawned enemy at: {xSpawn}, {ySpawn}, {zSpawn}.");
         GameObject enemyl = GameObject.Instantiate<GameObject>(enemy);
-        enemyl.transform.position = new Vector3(Random.Range(player.position.x - 200, player.position.x + 200), Random.Range(0, 50), Random.Range(player.position.y - 200, player.position.y + 200));
+        enemyl.transform.position = new Vector3(xSpawn, Random.Range(0, 50), zSpawn);
     }
 }
