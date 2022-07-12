@@ -19,6 +19,7 @@ public class AIstuff : MonoBehaviour
     public float shotDelay;
     public bool canShoot;
     public bool dead;
+    public AudioSource pew;
     public ParticleSystem burn;
     void Start()
     {
@@ -65,6 +66,7 @@ public class AIstuff : MonoBehaviour
 
         public void ShootShot()
     {
+        pew.Play();
         Vector3 spawnpos = Vector3.zero;
         switch (alternator)
         {

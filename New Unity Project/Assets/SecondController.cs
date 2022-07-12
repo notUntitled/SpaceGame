@@ -28,6 +28,7 @@ public class SecondController : MonoBehaviour
     public float rotationSpeed;
     public bool dead;
     public ParticleSystem burn;
+    public AudioSource pew;
     private void Start()
     {
         dead = false;
@@ -76,6 +77,7 @@ public class SecondController : MonoBehaviour
                 }
                 if (Input.GetKey(KeyCode.F))
                 {
+                    pew.Play();
                     Vector3 spawnpos = Vector3.zero;
                     switch (alternator)
                     {
