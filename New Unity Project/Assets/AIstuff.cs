@@ -83,7 +83,7 @@ public class AIstuff : MonoBehaviour
                 break;
         }
         GameObject fire = Instantiate(shot, spawnpos, Quaternion.identity);
-        fire.transform.Rotate(fire.transform.localRotation.x + 90, transform.rotation.y, transform.rotation.z);
+        fire.transform.rotation = Quaternion.AngleAxis(Mathf.Acos(Vector3.Dot(Vector3.forward, direcToPlayer)) * Mathf.Rad2Deg, Vector3.Cross(Vector3.forward, direcToPlayer)) * Quaternion.Euler(90, 0, 0);
         fire.GetComponent<Rigidbody>().AddForce(direcToPlayer * shotSpeedMult * 50);
     }
 

@@ -37,8 +37,8 @@ public class SecondController : MonoBehaviour
     private void OnDrawGizmos()
     {
         mouseCast = cam.ScreenPointToRay(Input.mousePosition);
-
         mouseVec = mouseCast.direction;
+        Debug.Log(mouseVec);
         mouseMagnitude = mouseVec.magnitude;
         Gizmos.color = Color.red;
         Gizmos.DrawLine(cam.transform.position, cam.transform.position + (mouseVec * visualMultiplier));
