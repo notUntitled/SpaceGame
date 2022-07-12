@@ -180,10 +180,14 @@ public class SecondController : MonoBehaviour
         dead = true;
         burningParticles();
     }
+    public void dealDamage(float damage)
+    {
+        entityHealth -= damage;
+        burn.Play();
+    }
 
-    IEnumerator burningParticles()
+    void burningParticles()
     {
         burn.Play();
-        yield return null;
     }
 }

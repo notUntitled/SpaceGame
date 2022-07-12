@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4678909298555040743}
   - component: {fileID: 935660679870802753}
   - component: {fileID: 2276214164110512621}
+  - component: {fileID: 7574766361257895184}
   m_Layer: 0
   m_Name: hangar_roundA 1
   m_TagString: Untagged
@@ -76,6 +77,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 557958d738a84ec4da633156b3bcd41d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dist: 0
+  player: {fileID: 0}
+  playerpos: {x: 0, y: 0, z: 0}
+--- !u!114 &7574766361257895184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475310433801671202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e22bd4253a0c5c84fbe149b27c8766b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 3
 --- !u!1 &1181048779876104250
 GameObject:
   m_ObjectHideFlags: 0

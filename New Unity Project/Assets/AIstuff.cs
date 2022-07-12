@@ -22,6 +22,10 @@ public class AIstuff : MonoBehaviour
     public ParticleSystem burn;
     void Start()
     {
+        //There's probably a more efficient way of doing this.
+        burn = ParticleSystem.Instantiate<ParticleSystem>(burn);
+        burn.transform.position = transform.position;
+        burn.Pause();
         player = GameObject.Find("player");
     }
 
@@ -92,6 +96,7 @@ public class AIstuff : MonoBehaviour
 
     void burningParticles()
     {
+        burn.transform.position = transform.position;
         burn.Play();
     }
 }
