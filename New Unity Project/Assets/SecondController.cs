@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SecondController : MonoBehaviour
 {
+    public float entityHealth = 50;
     public Ray mouseCast;
     public Vector3 mouseVec;
     public Camera cam;
