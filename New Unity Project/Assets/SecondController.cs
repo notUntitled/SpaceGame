@@ -95,7 +95,7 @@ public class SecondController : MonoBehaviour
                             break;
                     }
                     GameObject fire = Instantiate(shot, spawnpos, Quaternion.identity);
-                    fire.transform.Rotate(fire.transform.localRotation.x + 90, transform.rotation.y, transform.rotation.z);
+                    fire.transform.rotation = Quaternion.AngleAxis(Mathf.Acos(Vector3.Dot(Vector3.forward, mouseVec)) * Mathf.Rad2Deg, Vector3.Cross(Vector3.forward, mouseVec)) * Quaternion.Euler(90,0,0);
                     fire.GetComponent<Rigidbody>().AddForce(mouseVec * shotSpeedMult * 50);
                 }
                 if (Input.GetKey(KeyCode.LeftShift))
