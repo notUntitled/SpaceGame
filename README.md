@@ -1,4 +1,4 @@
-# Random Space Game Project
+# <a href="https://chewbaku.itch.io/space-game">Random Space Game Project</a>
  
 ## Synopsis
 This is a small "game" we created in a week to generally test out new mechanics and learn stuff we haven't done before such as working with quaternions. In the rest of this synopsis, I will document all of the intermediate topics that we covered to create this game for future reference.
