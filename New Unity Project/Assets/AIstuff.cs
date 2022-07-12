@@ -10,6 +10,13 @@ public class AIstuff : MonoBehaviour
     public float rotAngle;
     public Vector3 axis;
     public float speed;
+    public bool alternator;
+    public GameObject shot;
+    public Transform spawnR;
+    public Transform spawnL;
+    public float shotSpeedMult;
+    public float shotDelay;
+    public bool canShoot;
     void Start()
     {
 
@@ -18,6 +25,11 @@ public class AIstuff : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        shotDelay += Time.deltaTime;
+        if(shotDelay > .25f)
+        {
+            canShoot = true;
+        }
         //NEED TO NORMALIZE ELSE THE QUATERNION IS PURE.
         direcToPlayer = (player.transform.position - transform.position).normalized;
 
@@ -32,6 +44,32 @@ public class AIstuff : MonoBehaviour
 
         //Move ship to player
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed);
+
+        if (canShoot && (player.transform.position - transform.position).magnitude < 25f)
+        {
+            shotDelay = 0;
+            canShoot = false;
+            ShootShot();
+        }
+    }
+
+    public void ShootShot()
+    {
+        Vector3 spawnpos = Vector3.zero;
+        switch (alternator)
+        {
+            case true:
+                spawnpos = spawnR.position;
+                alternator = !alternator;
+                break;
+            case false:
+                spawnpos = spawnL.position;
+                alternator = !alternator;
+                break;
+        }
+        GameObject fire = Instantiate(shot, spawnpos, Quaternion.identity);
+        fire.transform.Rotate(fire.transform.localRotation.x + 90, transform.rotation.y, transform.rotation.z);
+        fire.GetComponent<Rigidbody>().AddForce(direcToPlayer * shotSpeedMult * 50);
     }
 
     private void OnDrawGizmos()
