@@ -26,6 +26,12 @@ public class SecondController : MonoBehaviour
     public float shotSpeedMult;
     public float velocityClamp = 200f;
     public float rotationSpeed;
+    public bool dead;
+    public ParticleSystem burn;
+    private void Start()
+    {
+        dead = false;
+    }
     private void OnDrawGizmos()
     {
         mouseCast = cam.ScreenPointToRay(Input.mousePosition);
@@ -42,79 +48,86 @@ public class SecondController : MonoBehaviour
 
     private void Update()
     {
-        yRot = 0;
-        xRot = 0;
-        zRot = 0;
-
-        if (Input.anyKey)
+        if (!dead)
         {
-            if (ship.rotation.y < 70 && Input.GetKey(KeyCode.D))
+            yRot = 0;
+            xRot = 0;
+            zRot = 0;
+
+            if (Input.anyKey)
             {
-                yRot += 1f;
-                zRot -= 1f;
-            }
-            if (ship.rotation.y > -70 && Input.GetKey(KeyCode.A))
-            {
-                yRot -= 1f;
-                zRot += 1f;
-            }
-            if (ship.rotation.x > -70 && Input.GetKey(KeyCode.W))
-            {
-                xRot -= 1f;
-            }
-            if (ship.rotation.x < 70 && Input.GetKey(KeyCode.S))
-            {
-                xRot += 1f;
-            }
-            if (Input.GetKey(KeyCode.F))
-            {
-                Vector3 spawnpos = Vector3.zero;
-                switch (alternator)
+                if (ship.rotation.y < 70 && Input.GetKey(KeyCode.D))
                 {
-                    case true:
-                        spawnpos = spawnR.position;
-                        alternator = !alternator;
-                        break;
-                    case false:
-                        spawnpos = spawnL.position;
-                        alternator = !alternator;
-                        break;
+                    yRot += 1f;
+                    zRot -= 1f;
                 }
-                GameObject fire = Instantiate(shot, spawnpos, Quaternion.identity);
-                fire.transform.Rotate(fire.transform.localRotation.x + 90, transform.rotation.y, transform.rotation.z);
-                fire.GetComponent<Rigidbody>().AddForce(mouseVec * shotSpeedMult * 50);
+                if (ship.rotation.y > -70 && Input.GetKey(KeyCode.A))
+                {
+                    yRot -= 1f;
+                    zRot += 1f;
+                }
+                if (ship.rotation.x > -70 && Input.GetKey(KeyCode.W))
+                {
+                    xRot -= 1f;
+                }
+                if (ship.rotation.x < 70 && Input.GetKey(KeyCode.S))
+                {
+                    xRot += 1f;
+                }
+                if (Input.GetKey(KeyCode.F))
+                {
+                    Vector3 spawnpos = Vector3.zero;
+                    switch (alternator)
+                    {
+                        case true:
+                            spawnpos = spawnR.position;
+                            alternator = !alternator;
+                            break;
+                        case false:
+                            spawnpos = spawnL.position;
+                            alternator = !alternator;
+                            break;
+                    }
+                    GameObject fire = Instantiate(shot, spawnpos, Quaternion.identity);
+                    fire.transform.Rotate(fire.transform.localRotation.x + 90, transform.rotation.y, transform.rotation.z);
+                    fire.GetComponent<Rigidbody>().AddForce(mouseVec * shotSpeedMult * 50);
+                }
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    ship.GetComponent<Rigidbody>().drag = 10 * ship.GetComponent<Rigidbody>().drag;
+                }
+                if (Input.GetMouseButton(0))
+                {
+                    transform.Translate(mouseVec * speedMultiplier * Time.deltaTime, Space.World);
+                }
             }
-            if (Input.GetKey(KeyCode.LeftShift))
+            else
             {
-                ship.GetComponent<Rigidbody>().drag = 10 * ship.GetComponent<Rigidbody>().drag;
+                ship.rotation = Quaternion.RotateTowards(ship.rotation, new Quaternion(AutoCorrect(ship.rotation.x, 0), AutoCorrect(ship.rotation.y, 0),
+                    AutoCorrect(ship.rotation.z, 1), AutoCorrect(ship.rotation.w, 0))
+                {
+
+                }, Time.deltaTime * rotationSpeed);
             }
-            if (Input.GetMouseButton(0))
+            /*else if (ship.rotation.z > 0) //Stabilizers
             {
-                transform.Translate(mouseVec * speedMultiplier * Time.deltaTime, Space.World);
+                zRot -= (ship.rotation.z/2);
             }
+            else if (ship.rotation.z < 0)
+            {
+                zRot += (ship.rotation.z / 2);
+            }*/
+            ship.Rotate(xRot / duoDeNormalizer, yRot / duoDeNormalizer, zRot / duoDeNormalizer);
         }
         else
         {
-            ship.rotation = Quaternion.RotateTowards(ship.rotation, new Quaternion(AutoCorrect(ship.rotation.x, 0), AutoCorrect(ship.rotation.y, 0), 
-                AutoCorrect(ship.rotation.z, 1), AutoCorrect(ship.rotation.w, 0))
-            {
 
-            }, Time.deltaTime * rotationSpeed);
         }
-        /*else if (ship.rotation.z > 0) //Stabilizers
-        {
-            zRot -= (ship.rotation.z/2);
-        }
-        else if (ship.rotation.z < 0)
-        {
-            zRot += (ship.rotation.z / 2);
-        }*/
-        ship.Rotate(xRot / duoDeNormalizer, yRot / duoDeNormalizer, zRot / duoDeNormalizer);
     }
-    //Lerp stabilizer thingy probably
+        //Lerp stabilizer thingy probably
 
-    float AutoCorrect(float rotation, int intensity)
-    {
+        float AutoCorrect(float rotation, int intensity)
+        {
         //Find nearest 45 deg angle
         //8 AM. Cant think of many efficient ways to solve this. I'll come back to this later for optimization.
         float[] degs = { 0, .125f, .25f, .375f, .5f, .625f, .75f, .875f, 1f };
@@ -160,5 +173,17 @@ public class SecondController : MonoBehaviour
         {
             return -closestRot;
         }
+    }
+
+    public void isDead()
+    {
+        dead = true;
+        burningParticles();
+    }
+
+    IEnumerator burningParticles()
+    {
+        burn.Play();
+        yield return null;
     }
 }

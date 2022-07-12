@@ -12,6 +12,10 @@ public class playerShot : MonoBehaviour
             SecondController entity = collision.gameObject.GetComponent<SecondController>();
             entity.entityHealth -= damage;
             GameObject.Destroy(gameObject);
+            if (entity.entityHealth <= 0)
+            {
+                entity.isDead();
+            }
         }
     }
 }
