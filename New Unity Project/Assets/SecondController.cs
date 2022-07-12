@@ -34,12 +34,9 @@ public class SecondController : MonoBehaviour
     {
         dead = false;
     }
+
     private void OnDrawGizmos()
     {
-        mouseCast = cam.ScreenPointToRay(Input.mousePosition);
-        mouseVec = mouseCast.direction;
-        Debug.Log(mouseVec);
-        mouseMagnitude = mouseVec.magnitude;
         Gizmos.color = Color.red;
         Gizmos.DrawLine(cam.transform.position, cam.transform.position + (mouseVec * visualMultiplier));
         Gizmos.color = Color.blue;
@@ -50,6 +47,9 @@ public class SecondController : MonoBehaviour
 
     private void Update()
     {
+        mouseCast = cam.ScreenPointToRay(Input.mousePosition);
+        mouseVec = mouseCast.direction;
+        mouseMagnitude = mouseVec.magnitude;
         if (!dead)
         {
             yRot = 0;

@@ -24,11 +24,7 @@ public class RocketController : MonoBehaviour
     public float shotSpeedMult;
     public float velocityClamp = 200f;
     private void OnDrawGizmos()
-    {
-        mouseCast = cam.ScreenPointToRay(Input.mousePosition);
-
-        mouseVec = mouseCast.direction;
-        mouseMagnitude = mouseVec.magnitude;
+    { 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(cam.transform.position, cam.transform.position + (mouseVec * visualMultiplier));
         Gizmos.color = Color.blue;
@@ -39,6 +35,10 @@ public class RocketController : MonoBehaviour
 
     private void Update()
     {
+        mouseCast = cam.ScreenPointToRay(Input.mousePosition);
+
+        mouseVec = mouseCast.direction;
+        mouseMagnitude = mouseVec.magnitude;
         yRot = 0;
         xRot = 0;
         if (ship.rotation.y > 70)
