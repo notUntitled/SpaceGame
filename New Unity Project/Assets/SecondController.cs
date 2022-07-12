@@ -29,6 +29,7 @@ public class SecondController : MonoBehaviour
     public bool dead;
     public ParticleSystem burn;
     public AudioSource pew;
+    public GameObject deathScreen;
     private void Start()
     {
         dead = false;
@@ -77,8 +78,11 @@ public class SecondController : MonoBehaviour
                 }
                 if (Input.GetKey(KeyCode.F))
                 {
-                    pew.Play();
-                    Vector3 spawnpos = Vector3.zero;
+                    if (!pew.isPlaying)
+                    {
+                        pew.Play();
+                    }   
+                        Vector3 spawnpos = Vector3.zero;
                     switch (alternator)
                     {
                         case true:
@@ -180,6 +184,7 @@ public class SecondController : MonoBehaviour
     public void isDead()
     {
         dead = true;
+        deathScreen.SetActive(true);
         burningParticles();
     }
     public void dealDamage(float damage)

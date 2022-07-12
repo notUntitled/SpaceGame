@@ -7,7 +7,7 @@ public class enemyShot : MonoBehaviour // I COULD use inheritance for both of th
     public float damage;
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Player")
         {
             SecondController entity = collision.gameObject.GetComponent<SecondController>();
             entity.dealDamage(damage);

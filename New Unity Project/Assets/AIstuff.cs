@@ -66,7 +66,10 @@ public class AIstuff : MonoBehaviour
 
         public void ShootShot()
     {
-        pew.Play();
+        if (!pew.isPlaying)
+        {
+            pew.Play();
+        }
         Vector3 spawnpos = Vector3.zero;
         switch (alternator)
         {
