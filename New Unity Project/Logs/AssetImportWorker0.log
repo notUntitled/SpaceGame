@@ -4969,3 +4969,35 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 3131.817178 seconds.
+  path: Assets/highpew.wav
+  artifactKey: Guid(7faa6d8c32bf17649ab9acbb0e49d7d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/highpew.wav using Guid(7faa6d8c32bf17649ab9acbb0e49d7d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38ceefdfaafbd0483beea2484e9cd3a0') in 0.537892 seconds 
+  Import took 0.551514 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000321 seconds.
+  path: Assets/lowpew.wav
+  artifactKey: Guid(e30faffe1be5bf44aab22541c5b57316) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/lowpew.wav using Guid(e30faffe1be5bf44aab22541c5b57316) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e8a50735562baec4467f29e11f88e5a') in 0.017695 seconds 
+  Import took 0.022655 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 25.010830 seconds.
+  path: Assets/Enemy 1.prefab
+  artifactKey: Guid(9fcd7d497d19c4c43b581e89fd609db4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy 1.prefab using Guid(9fcd7d497d19c4c43b581e89fd609db4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed7eed6fc009eaa71bd2ce57b37a3c5d') in 0.191993 seconds 
+  Import took 0.197590 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.187049 seconds.
+  path: Assets/Enemy 1.prefab
+  artifactKey: Guid(9fcd7d497d19c4c43b581e89fd609db4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Enemy 1.prefab using Guid(9fcd7d497d19c4c43b581e89fd609db4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97809ef8858dc7b7a64a1b429304673e') in 0.031839 seconds 
+  Import took 0.043076 seconds .
+
