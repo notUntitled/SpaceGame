@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AIstuff : MonoBehaviour
 {
+    public float entityHealth = 90;
     public GameObject player;
     public Vector3 direcToPlayer;
     public Quaternion enemyRotation;
@@ -17,6 +18,8 @@ public class AIstuff : MonoBehaviour
     public float shotSpeedMult;
     public float shotDelay;
     public bool canShoot;
+    public bool dead;
+    public ParticleSystem burn;
     void Start()
     {
         player = GameObject.Find("player");
@@ -25,35 +28,38 @@ public class AIstuff : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        shotDelay += Time.deltaTime;
-        if(shotDelay > .25f)
+        if (!dead)
         {
-            canShoot = true;
+            shotDelay += Time.deltaTime;
+            if (shotDelay > .25f)
+            {
+                canShoot = true;
+            }
+            //NEED TO NORMALIZE ELSE THE QUATERNION IS PURE.
+            direcToPlayer = (player.transform.position - transform.position).normalized;
+
+            //Acosine of the Dot Product between the Forward Vector and the desired Vector (DirecToPlayer). Convert to Deg.
+            rotAngle = Mathf.Acos(Vector3.Dot(Vector3.forward, direcToPlayer)) * Mathf.Rad2Deg;
+            //Cross product between the Forward Vector and the direction the enemy should be looking.
+            axis = Vector3.Cross(Vector3.forward, direcToPlayer);
+            enemyRotation = Quaternion.AngleAxis(rotAngle, axis);
+
+
+            transform.rotation = enemyRotation;
+
+            //Move ship to player
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed);
+
+            if (canShoot && (player.transform.position - transform.position).magnitude < 25f)
+            {
+                shotDelay = 0;
+                canShoot = false;
+                ShootShot();
+            }
         }
-        //NEED TO NORMALIZE ELSE THE QUATERNION IS PURE.
-        direcToPlayer = (player.transform.position - transform.position).normalized;
-
-        //Acosine of the Dot Product between the Forward Vector and the desired Vector (DirecToPlayer). Convert to Deg.
-        rotAngle = Mathf.Acos(Vector3.Dot(Vector3.forward, direcToPlayer)) * Mathf.Rad2Deg;
-        //Cross product between the Forward Vector and the direction the enemy should be looking.
-        axis = Vector3.Cross(Vector3.forward, direcToPlayer);
-        enemyRotation = Quaternion.AngleAxis(rotAngle, axis);
-
-
-        transform.rotation = enemyRotation;
-
-        //Move ship to player
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed);
-
-        if (canShoot && (player.transform.position - transform.position).magnitude < 25f)
-        {
-            shotDelay = 0;
-            canShoot = false;
-            ShootShot();
         }
-    }
 
-    public void ShootShot()
+        public void ShootShot()
     {
         Vector3 spawnpos = Vector3.zero;
         switch (alternator)
@@ -76,5 +82,16 @@ public class AIstuff : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, player.transform.position);
+    }
+
+    public void isDead()
+    {
+        dead = true;
+        burningParticles();
+    }
+
+    void burningParticles()
+    {
+        burn.Play();
     }
 }

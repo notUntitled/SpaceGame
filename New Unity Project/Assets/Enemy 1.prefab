@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f040fb9a15dea0429e803b1de80fc52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityHealth: 90
   player: {fileID: 0}
   direcToPlayer: {x: 0, y: 0, z: 0}
   enemyRotation: {x: 0, y: 0, z: 0, w: 0}
@@ -142,6 +143,8 @@ MonoBehaviour:
   shotSpeedMult: 200
   shotDelay: 0
   canShoot: 0
+  dead: 0
+  burn: {fileID: 4533867218047343894, guid: 435bae51a3687e14fa006ac1176dc777, type: 3}
 --- !u!54 &4701100619464291737
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -156,7 +159,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!65 &1865321604459055748
 BoxCollider:

@@ -9,10 +9,10 @@ public class playerShot : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {         
-            SecondController entity = collision.gameObject.GetComponent<SecondController>();
+            AIstuff entity = collision.gameObject.GetComponent<AIstuff>();
             entity.entityHealth -= damage;
             GameObject.Destroy(gameObject);
-            Debug.Log("$ Dealt {damage} to enemy");
+            Debug.Log($" Dealt {damage} to enemy");
             if (entity.entityHealth <= 0)
             {
                 entity.isDead();
