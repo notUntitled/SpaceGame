@@ -22,4 +22,5 @@ Vectors are used in a variety of places, though mainly: to get the player's dire
 
 
 
-###### <sub>coded by yannis lagrosa :3
+###### <sub>coded by yannis lagrosa :3 [fork & inspect]
+<!--- You're digging deep for information. I wonder if I'm in trouble? Or maybe you're similar to me? (: --->
